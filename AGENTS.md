@@ -18,7 +18,7 @@
 
 ## Domain
 
-- Placeholder: tdeecalctools.com (swap once Jonathan registers on Cloudflare)
+- Placeholder: easytdee.com (swap once Jonathan registers on Cloudflare)
 - AdSense slot IDs: placeholder values, swap once site is approved
 
 ## Data sources
