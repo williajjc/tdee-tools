@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TDEE Calculator 2026 — Total Daily Energy Expenditure</title>
+  <meta name="description" content="Calculate your Total Daily Energy Expenditure (TDEE) using the Mifflin-St Jeor formula. Enter age, weight, height, and activity level to get your daily calorie needs.">
+  <link rel="canonical" href="https://tdeecalctools.com/tdee-calculator.html">
+  <link rel="stylesheet" href="/css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "TDEE Calculator",
+    "url": "https://tdeecalctools.com/tdee-calculator.html",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "All",
+    "description": "Free TDEE calculator using the Mifflin-St Jeor formula. Find your Total Daily Energy Expenditure based on age, weight, height, and activity level.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is TDEE?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "TDEE stands for Total Daily Energy Expenditure. It is the total number of calories your body burns in a day, including your resting metabolism plus calories burned through activity. It is the number you compare your food intake against to determine if you will lose, maintain, or gain weight."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is TDEE calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "TDEE is calculated in two steps. First, Basal Metabolic Rate (BMR) is estimated using the Mifflin-St Jeor formula: (10 × weight in kg) + (6.25 × height in cm) - (5 × age) + 5 for men, or -161 for women. Then BMR is multiplied by an activity factor: 1.2 for sedentary, 1.375 for lightly active, 1.55 for moderately active, 1.725 for very active, and 1.9 for extra active."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a good TDEE?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "There is no single 'good' TDEE — it depends entirely on your body size, age, and activity level. A sedentary adult woman typically has a TDEE of 1,600–2,000 calories per day. A sedentary adult man typically 2,000–2,600. Active individuals can exceed 3,000–4,000 calories per day."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How accurate is the Mifflin-St Jeor formula?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Mifflin-St Jeor formula is the most accurate predictive equation for most adults. A 2005 meta-analysis found it predicted resting energy expenditure within 10% for 82% of non-obese adults. It is less accurate for very muscular individuals (underestimates) and those with obesity (may overestimate). Treat the result as a starting estimate and adjust based on real-world results over 2–4 weeks."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should I eat at my TDEE to maintain weight?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Eating at your TDEE means your energy intake matches your energy expenditure, which maintains your current weight. Eating below TDEE creates a deficit and leads to weight loss. Eating above TDEE creates a surplus and leads to weight gain."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="brand" href="/">
+        <div class="brand-icon">🔥</div>
+        <span class="brand-name">TDEE <span>Calc</span></span>
+      </a>
+      <nav class="nav-links">
+        <a href="/tdee-calculator.html">TDEE</a>
+        <a href="/macro-calculator.html">Macros</a>
+        <a href="/calorie-deficit-calculator.html">Calorie Deficit</a>
+        <a href="/bmi-calculator.html">BMI</a>
+      </nav>
+      <span class="nav-tag">Free</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-intro">
+      <div class="hero-eyebrow">Mifflin-St Jeor formula · Validated 1990</div>
+      <h1>TDEE Calculator</h1>
+      <p>Find your Total Daily Energy Expenditure — the calories you burn each day — based on age, weight, height, and how active you are.</p>
+    </section>
+
+    <div class="trust-row">
+      <span class="trust-badge">Mifflin-St Jeor formula</span>
+      <span class="trust-badge">Formula shown on this page</span>
+      <span class="trust-badge">No account needed</span>
+    </div>
+
+    <div class="calc-card">
+      <div class="calc-header">
+        <div class="calc-header-icon">🔥</div>
+        <div>
+          <h2>TDEE Calculator</h2>
+          <p>Enter your stats below to calculate daily calorie burn</p>
+        </div>
+      </div>
+      <div class="calc-body">
+        <form id="tdeeForm" onsubmit="return false;">
+          <div class="form-grid">
+            <div class="form-group full">
+              <label>Sex</label>
+              <div class="radio-group">
+                <div class="radio-btn">
+                  <input type="radio" name="sex" id="male" value="male" checked>
+                  <label for="male">Male</label>
+                </div>
+                <div class="radio-btn">
+                  <input type="radio" name="sex" id="female" value="female">
+                  <label for="female">Female</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="age">Age (years)</label>
+              <input type="number" id="age" min="15" max="100" placeholder="30" inputmode="numeric">
+            </div>
+
+            <div class="form-group">
+              <label for="units">Units</label>
+              <div class="select-wrap">
+                <select id="units" onchange="toggleUnits()">
+                  <option value="imperial">Imperial (lbs / in)</option>
+                  <option value="metric">Metric (kg / cm)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group" id="weightGroup">
+              <label for="weight" id="weightLabel">Weight (lbs)</label>
+              <input type="number" id="weight" min="50" max="700" placeholder="160" inputmode="decimal">
+            </div>
+
+            <div class="form-group" id="heightGroup">
+              <label for="heightFt" id="heightLabel">Height</label>
+              <div style="display:flex;gap:8px;" id="imperialHeight">
+                <input type="number" id="heightFt" min="3" max="8" placeholder="5" style="width:50%;" inputmode="numeric">
+                <input type="number" id="heightIn" min="0" max="11" placeholder="10" style="width:50%;" inputmode="numeric">
+              </div>
+              <input type="number" id="heightCm" min="100" max="250" placeholder="178" style="display:none;" inputmode="numeric">
+            </div>
+
+            <div class="form-group full">
+              <label for="activity">Activity Level</label>
+              <div class="select-wrap">
+                <select id="activity">
+                  <option value="1.2">Sedentary — desk job, little to no exercise</option>
+                  <option value="1.375">Lightly active — light exercise 1-3 days/week</option>
+                  <option value="1.55" selected>Moderately active — exercise 3-5 days/week</option>
+                  <option value="1.725">Very active — hard exercise 6-7 days/week</option>
+                  <option value="1.9">Extra active — physical job or 2x training daily</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn" onclick="calculateTDEE()">Calculate My TDEE →</button>
+        </form>
+
+        <div class="result-box" id="resultBox">
+          <div class="result-headline">Your Total Daily Energy Expenditure</div>
+          <div class="result-number" id="tdeeResult">—</div>
+          <div class="result-unit">calories per day</div>
+
+          <div class="result-breakdown">
+            <div class="breakdown-row">
+              <span class="breakdown-label">Basal Metabolic Rate (BMR)</span>
+              <span class="breakdown-value" id="bmrResult">—</span>
+            </div>
+            <div class="breakdown-row">
+              <span class="breakdown-label">Activity multiplier</span>
+              <span class="breakdown-value" id="activityResult">—</span>
+            </div>
+            <div class="breakdown-row">
+              <span class="breakdown-label">Weight loss target (−500 cal/day)</span>
+              <span class="breakdown-value" id="deficitResult">—</span>
+            </div>
+            <div class="breakdown-row">
+              <span class="breakdown-label">Weight gain target (+300 cal/day)</span>
+              <span class="breakdown-value" id="surplusResult">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ad unit -->
+    <div class="ad-unit">Advertisement</div>
+
+    <section class="content-section">
+      <h2>How TDEE is calculated</h2>
+      <p>TDEE is calculated in two steps using the Mifflin-St Jeor equation, published in the Journal of the American Dietetic Association in 1990. It is the most validated predictive formula for resting energy expenditure in the general adult population.</p>
+
+      <p><strong>Step 1: Calculate BMR (Basal Metabolic Rate)</strong></p>
+      <div class="formula-box">
+        Men: BMR = (10 × weight kg) + (6.25 × height cm) − (5 × age) + 5<br>
+        Women: BMR = (10 × weight kg) + (6.25 × height cm) − (5 × age) − 161
+      </div>
+
+      <p><strong>Step 2: Multiply by activity factor</strong></p>
+      <div class="formula-box">
+        Sedentary: BMR × 1.2<br>
+        Lightly active (1–3 days/week): BMR × 1.375<br>
+        Moderately active (3–5 days/week): BMR × 1.55<br>
+        Very active (6–7 days/week): BMR × 1.725<br>
+        Extra active (physical job or 2× daily): BMR × 1.9
+      </div>
+
+      <p>The result is your TDEE — the total calories your body needs to maintain your current weight at your current activity level.</p>
+    </section>
+
+    <section class="content-section">
+      <h2>Frequently Asked Questions</h2>
+      <ul class="faq-list">
+        <li class="faq-item">
+          <div class="faq-question">What is TDEE?</div>
+          <div class="faq-answer">TDEE stands for Total Daily Energy Expenditure. It is the total number of calories your body burns in a day — including resting metabolism plus calories burned through movement and exercise. It is the number you compare your food intake against to determine if you will lose, maintain, or gain weight.</div>
+        </li>
+        <li class="faq-item">
+          <div class="faq-question">What is a good TDEE?</div>
+          <div class="faq-answer">There is no single "good" TDEE — it depends on your body size, age, and activity level. A sedentary adult woman typically has a TDEE of 1,600–2,000 calories per day. A sedentary adult man typically 2,000–2,600. Active individuals can exceed 3,000–4,000 calories per day.</div>
+        </li>
+        <li class="faq-item">
+          <div class="faq-question">How accurate is the Mifflin-St Jeor formula?</div>
+          <div class="faq-answer">A 2005 meta-analysis found it predicted resting energy expenditure within 10% for 82% of non-obese adults. It is less accurate for very muscular individuals (underestimates) and those with high body fat (may overestimate). Treat the result as a starting estimate and adjust based on real-world results over 2–4 weeks.</div>
+        </li>
+        <li class="faq-item">
+          <div class="faq-question">Should I eat at my TDEE to maintain weight?</div>
+          <div class="faq-answer">Yes. Eating at your TDEE means your energy intake matches your energy expenditure, which maintains your current weight. Eating below TDEE creates a calorie deficit and leads to weight loss. Eating above TDEE creates a surplus and leads to weight gain.</div>
+        </li>
+        <li class="faq-item">
+          <div class="faq-question">How does activity level affect TDEE?</div>
+          <div class="faq-answer">Activity level has a large effect. A sedentary person multiplies their BMR by 1.2, while someone with a physically demanding job multiplies by 1.9 — a difference of nearly 60%. Choosing the wrong activity level is the most common source of inaccuracy. When in doubt, choose one level lower than you think.</div>
+        </li>
+      </ul>
+    </section>
+
+    <section class="related-tools content-section">
+      <h2>Related calculators</h2>
+      <ul class="related-list">
+        <li><a href="/macro-calculator.html">Macro Calculator</a></li>
+        <li><a href="/calorie-deficit-calculator.html">Calorie Deficit Calculator</a></li>
+        <li><a href="/bmi-calculator.html">BMI Calculator</a></li>
+      </ul>
+    </section>
+
+    <p class="source-note">
+      Formula source: St Jeor ST, et al. <em>Obesity as a risk factor for disease.</em> J Am Diet Assoc. 1990;90(10):1407–1413.
+      Activity multipliers: Katch-McArdle convention. This tool is not a substitute for medical advice.
+    </p>
+  </main>
+
+  <footer>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/tdee-calculator.html">TDEE</a>
+      <a href="/macro-calculator.html">Macros</a>
+      <a href="/calorie-deficit-calculator.html">Calorie Deficit</a>
+      <a href="/bmi-calculator.html">BMI</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+    </nav>
+    <p>© 2026 TDEE Calc Tools · Free fitness calculators · Not medical advice</p>
+  </footer>
+
+  <script>
+    function toggleUnits() {
+      const u = document.getElementById('units').value;
+      const isImperial = u === 'imperial';
+      document.getElementById('weightLabel').textContent = isImperial ? 'Weight (lbs)' : 'Weight (kg)';
+      document.getElementById('imperialHeight').style.display = isImperial ? 'flex' : 'none';
+      document.getElementById('heightCm').style.display = isImperial ? 'none' : 'block';
+      document.getElementById('weight').placeholder = isImperial ? '160' : '73';
+    }
+
+    function getInputs() {
+      const sex = document.querySelector('input[name="sex"]:checked').value;
+      const age = parseFloat(document.getElementById('age').value);
+      const units = document.getElementById('units').value;
+      const activity = parseFloat(document.getElementById('activity').value);
+      let weightKg, heightCm;
+
+      if (units === 'imperial') {
+        const lbs = parseFloat(document.getElementById('weight').value);
+        const ft = parseFloat(document.getElementById('heightFt').value) || 0;
+        const inches = parseFloat(document.getElementById('heightIn').value) || 0;
+        weightKg = lbs / 2.20462;
+        heightCm = (ft * 12 + inches) * 2.54;
+      } else {
+        weightKg = parseFloat(document.getElementById('weight').value);
+        heightCm = parseFloat(document.getElementById('heightCm').value);
+      }
+
+      return { sex, age, weightKg, heightCm, activity };
+    }
+
+    function calculateTDEE() {
+      const { sex, age, weightKg, heightCm, activity } = getInputs();
+
+      if (!age || !weightKg || !heightCm || isNaN(weightKg) || isNaN(heightCm)) {
+        alert('Please fill in all fields before calculating.');
+        return;
+      }
+
+      // Mifflin-St Jeor BMR
+      let bmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age);
+      bmr += sex === 'male' ? 5 : -161;
+
+      const tdee = bmr * activity;
+
+      document.getElementById('bmrResult').textContent = Math.round(bmr).toLocaleString() + ' cal/day';
+      document.getElementById('activityResult').textContent = '× ' + activity.toFixed(3);
+      document.getElementById('tdeeResult').textContent = Math.round(tdee).toLocaleString();
+      document.getElementById('deficitResult').textContent = Math.round(tdee - 500).toLocaleString() + ' cal/day';
+      document.getElementById('surplusResult').textContent = Math.round(tdee + 300).toLocaleString() + ' cal/day';
+
+      const box = document.getElementById('resultBox');
+      box.classList.add('visible');
+      box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  </script>
+</body>
+</html>

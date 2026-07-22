@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calorie Deficit Calculator 2026 — Safe Weight Loss Rate</title>
+  <meta name="description" content="Find the right calorie deficit for your weight loss goal and timeline. Shows weekly loss rate, time to goal, and whether the deficit is safe. Free, no account required.">
+  <link rel="canonical" href="https://tdeecalctools.com/calorie-deficit-calculator.html">
+  <link rel="stylesheet" href="/css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calorie Deficit Calculator",
+    "url": "https://tdeecalctools.com/calorie-deficit-calculator.html",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "All",
+    "description": "Free calorie deficit calculator. Find the right daily calorie target for your weight loss goal and timeline.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a calorie deficit?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A calorie deficit is when you eat fewer calories than your body burns in a day. If your TDEE (Total Daily Energy Expenditure) is 2,500 calories and you eat 2,000, you are in a 500-calorie deficit. Over time, this forces your body to draw on stored fat for energy, resulting in weight loss."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How big should my calorie deficit be?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A deficit of 300–500 calories per day produces sustainable weight loss of 0.5–1 lb per week without significant muscle loss. A 500–750 calorie deficit per day produces 1–1.5 lbs per week, which is the upper end recommended by most nutrition guidelines. Deficits above 1,000 calories per day increase the risk of muscle loss and nutritional deficiencies."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much weight can I lose in a month with a calorie deficit?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A 500-calorie daily deficit produces roughly 4 lbs of fat loss per month (3,500 calories ≈ 1 lb of fat). A 750-calorie deficit produces approximately 6 lbs per month. These are estimates based on the 3,500 calorie per pound model; actual results vary with individual metabolism, water retention, and adherence."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will a calorie deficit cause muscle loss?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A moderate deficit (300–500 calories below TDEE) with adequate protein intake (0.8–1g per lb of bodyweight) and resistance training minimises muscle loss. Large deficits (over 1,000 calories per day) significantly increase the risk of losing lean mass. Protein intake and strength training are the two primary protectors of muscle during a deficit."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="brand" href="/">
+        <div class="brand-icon">🔥</div>
+        <span class="brand-name">TDEE <span>Calc</span></span>
+      </a>
+      <nav class="nav-links">
+        <a href="/tdee-calculator.html">TDEE</a>
+        <a href="/macro-calculator.html">Macros</a>
+        <a href="/calorie-deficit-calculator.html">Calorie Deficit</a>
+        <a href="/bmi-calculator.html">BMI</a>
+      </nav>
+      <span class="nav-tag">Free</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-intro">
+      <div class="hero-eyebrow">3,500 cal ≈ 1 lb model · Safety thresholds applied</div>
+      <h1>Calorie Deficit Calculator</h1>
+      <p>Find out how many calories to eat per day to reach your goal weight, and how long it will realistically take at a safe deficit.</p>
+    </section>
+
+    <div class="trust-row">
+      <span class="trust-badge">Safe rate flags built in</span>
+      <span class="trust-badge">Formula shown on this page</span>
+      <span class="trust-badge">No account needed</span>
+    </div>
+
+    <div class="calc-card">
+      <div class="calc-header">
+        <div class="calc-header-icon">📉</div>
+        <div>
+          <h2>Calorie Deficit Calculator</h2>
+          <p>Enter your TDEE, current weight, and goal weight</p>
+        </div>
+      </div>
+      <div class="calc-body">
+        <form onsubmit="return false;">
+          <div class="form-grid">
+            <div class="form-group full">
+              <label for="tdee">Your TDEE (calories/day)</label>
+              <input type="number" id="tdee" min="1000" max="8000" placeholder="2500 — use the TDEE Calculator if unsure" inputmode="numeric">
+            </div>
+
+            <div class="form-group">
+              <label for="currentWeight">Current weight (lbs)</label>
+              <input type="number" id="currentWeight" min="80" max="700" placeholder="180" inputmode="decimal">
+            </div>
+
+            <div class="form-group">
+              <label for="goalWeight">Goal weight (lbs)</label>
+              <input type="number" id="goalWeight" min="80" max="700" placeholder="160" inputmode="decimal">
+            </div>
+
+            <div class="form-group full">
+              <label for="rate">Weekly loss rate</label>
+              <div class="select-wrap">
+                <select id="rate">
+                  <option value="0.5">0.5 lb/week — conservative, easy to maintain</option>
+                  <option value="1" selected>1 lb/week — standard, recommended</option>
+                  <option value="1.5">1.5 lbs/week — faster, higher protein needed</option>
+                  <option value="2">2 lbs/week — aggressive, maximum safe rate</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn" onclick="calculateDeficit()">Calculate My Deficit →</button>
+        </form>
+
+        <div class="result-box" id="resultBox">
+          <div class="result-headline">Your Daily Calorie Target</div>
+          <div class="result-number" id="targetCalories">—</div>
+          <div class="result-unit">calories per day</div>
+
+          <div class="result-breakdown">
+            <div class="breakdown-row">
+              <span class="breakdown-label">Daily calorie deficit</span>
+              <span class="breakdown-value" id="dailyDeficit">—</span>
+            </div>
+            <div class="breakdown-row">
+              <span class="breakdown-label">Weekly calorie deficit</span>
+              <span class="breakdown-value" id="weeklyDeficit">—</span>
+            </div>
+            <div class="breakdown-row">
+              <span class="breakdown-label">Weight to lose</span>
+              <span class="breakdown-value" id="weightToLose">—</span>
+            </div>
+            <div class="breakdown-row">
+              <span class="breakdown-label">Estimated time to goal</span>
+              <span class="breakdown-value" id="timeToGoal">—</span>
+            </div>
+            <div class="breakdown-row">
+              <span class="breakdown-label">Safety rating</span>
+              <span class="breakdown-value" id="safetyRating">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-unit">Advertisement</div>
+
+    <section class="content-section">
+      <h2>How calorie deficit is calculated</h2>
+      <p>The calorie deficit model is based on the widely used approximation that 1 pound of body fat contains approximately 3,500 calories. This means a daily deficit of 500 calories produces roughly 1 pound of fat loss per week.</p>
+
+      <div class="formula-box">
+        Daily deficit = weekly rate × 3,500 ÷ 7<br>
+        Daily calorie target = TDEE − daily deficit<br>
+        Weeks to goal = (current weight − goal weight) × 3,500 ÷ weekly deficit<br><br>
+        Safety floor: 1,200 cal/day (women), 1,500 cal/day (men)
+      </div>
+
+      <p>Note: The 3,500 calorie model is a useful approximation, not a precise biological law. Actual fat loss rates vary with individual metabolism, water retention, hormonal factors, and adherence. Expect more loss in the first 1–2 weeks (water weight) and a plateau around weeks 8–12 as metabolism adapts.</p>
+    </section>
+
+    <section class="content-section">
+      <h2>Frequently Asked Questions</h2>
+      <ul class="faq-list">
+        <li class="faq-item">
+          <div class="faq-question">What is a calorie deficit?</div>
+          <div class="faq-answer">A calorie deficit is when you eat fewer calories than your body burns in a day. If your TDEE is 2,500 calories and you eat 2,000, you are in a 500-calorie deficit. Over time, this forces your body to draw on stored fat, resulting in weight loss.</div>
+        </li>
+        <li class="faq-item">
+          <div class="faq-question">How big should my calorie deficit be?</div>
+          <div class="faq-answer">A deficit of 300–500 calories per day produces sustainable loss of 0.5–1 lb per week without significant muscle loss. A 500–750 calorie deficit produces 1–1.5 lbs per week, which is the upper end recommended by most nutrition guidelines. Deficits above 1,000 calories per day increase the risk of muscle loss and nutritional deficiencies.</div>
+        </li>
+        <li class="faq-item">
+          <div class="faq-question">How much weight can I lose in a month on a deficit?</div>
+          <div class="faq-answer">A 500-calorie daily deficit produces roughly 4 lbs per month. A 750-calorie deficit produces approximately 6 lbs per month. These are estimates; actual results vary with individual metabolism and adherence.</div>
+        </li>
+        <li class="faq-item">
+          <div class="faq-question">Will a calorie deficit cause muscle loss?</div>
+          <div class="faq-answer">A moderate deficit with adequate protein intake (0.8–1g per lb of bodyweight) and resistance training minimises muscle loss. Large deficits over 1,000 calories per day significantly increase lean mass loss. Protein intake and strength training are the primary protectors of muscle during a deficit.</div>
+        </li>
+      </ul>
+    </section>
+
+    <section class="related-tools content-section">
+      <h2>Related calculators</h2>
+      <ul class="related-list">
+        <li><a href="/tdee-calculator.html">TDEE Calculator</a></li>
+        <li><a href="/macro-calculator.html">Macro Calculator</a></li>
+        <li><a href="/bmi-calculator.html">BMI Calculator</a></li>
+      </ul>
+    </section>
+
+    <p class="source-note">
+      Calorie model: Wishnofsky M. <em>Am J Clin Nutr.</em> 1958 — the 3,500 cal/lb approximation.
+      Safety floors: Academy of Nutrition and Dietetics. Not medical advice.
+    </p>
+  </main>
+
+  <footer>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/tdee-calculator.html">TDEE</a>
+      <a href="/macro-calculator.html">Macros</a>
+      <a href="/calorie-deficit-calculator.html">Calorie Deficit</a>
+      <a href="/bmi-calculator.html">BMI</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+    </nav>
+    <p>© 2026 TDEE Calc Tools · Free fitness calculators · Not medical advice</p>
+  </footer>
+
+  <script>
+    function calculateDeficit() {
+      const tdee = parseFloat(document.getElementById('tdee').value);
+      const current = parseFloat(document.getElementById('currentWeight').value);
+      const goal = parseFloat(document.getElementById('goalWeight').value);
+      const rate = parseFloat(document.getElementById('rate').value);
+
+      if (!tdee || isNaN(tdee)) { alert('Please enter your TDEE. Use the TDEE Calculator if you need help.'); return; }
+      if (!current || !goal || isNaN(current) || isNaN(goal)) { alert('Please enter both current and goal weight.'); return; }
+      if (goal >= current) { alert('Goal weight should be less than current weight for a deficit.'); return; }
+
+      const dailyDeficit = Math.round(rate * 3500 / 7);
+      const targetCal = Math.round(tdee - dailyDeficit);
+      const weeklyDeficit = dailyDeficit * 7;
+      const weightToLose = current - goal;
+      const weeksToGoal = Math.round((weightToLose * 3500) / weeklyDeficit);
+
+      let safety;
+      if (targetCal < 1200) safety = '⚠️ Below safe minimum — increase target or reduce rate';
+      else if (dailyDeficit > 1000) safety = '⚠️ Aggressive — ensure adequate protein and monitor energy';
+      else if (dailyDeficit > 500) safety = '✓ Moderate-aggressive — sustainable with high protein';
+      else safety = '✓ Safe and sustainable';
+
+      const months = Math.round(weeksToGoal / 4.3);
+      const timeStr = weeksToGoal < 5 ? weeksToGoal + ' weeks' : weeksToGoal < 13 ? weeksToGoal + ' weeks (~' + months + ' month' + (months > 1 ? 's' : '') + ')' : months + ' months (~' + weeksToGoal + ' weeks)';
+
+      document.getElementById('targetCalories').textContent = Math.max(1200, targetCal).toLocaleString();
+      document.getElementById('dailyDeficit').textContent = dailyDeficit.toLocaleString() + ' calories';
+      document.getElementById('weeklyDeficit').textContent = weeklyDeficit.toLocaleString() + ' calories';
+      document.getElementById('weightToLose').textContent = weightToLose.toFixed(1) + ' lbs';
+      document.getElementById('timeToGoal').textContent = timeStr;
+      document.getElementById('safetyRating').textContent = safety;
+
+      const box = document.getElementById('resultBox');
+      box.classList.add('visible');
+      box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  </script>
+</body>
+</html>

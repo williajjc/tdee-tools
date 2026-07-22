@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Macro Calculator 2026 — Protein, Carbs & Fat Targets</title>
+  <meta name="description" content="Calculate your daily protein, carbohydrate, and fat targets based on your TDEE and goal. Choose cut, maintain, or bulk. Free, no account required.">
+  <link rel="canonical" href="https://tdeecalctools.com/macro-calculator.html">
+  <link rel="stylesheet" href="/css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Macro Calculator",
+    "url": "https://tdeecalctools.com/macro-calculator.html",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "All",
+    "description": "Free macro calculator. Find protein, carb, and fat targets based on your calorie goal and fitness objective.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How many grams of protein should I eat per day?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For most active adults trying to maintain or build muscle, 0.7–1.0 grams of protein per pound of body weight per day (1.6–2.2g per kg) is the evidence-based range. Higher protein intake (up to 1.2g/lb) is beneficial during a calorie deficit to protect lean mass."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are macros in nutrition?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Macros (macronutrients) are the three main nutrients that provide calories: protein (4 cal/g), carbohydrates (4 cal/g), and fat (9 cal/g). Tracking macros means ensuring you eat the right amount of each to support your goal, not just total calories."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What percentage of calories should come from protein?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Dietary Guidelines for Americans recommend 10–35% of calories from protein. For active individuals trying to build or retain muscle, 25–35% is a reasonable target. During a calorie deficit, prioritising the higher end (30–35%) helps preserve lean mass."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much fat should I eat per day?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Dietary Guidelines for Americans recommend 20–35% of calories from fat. A minimum of 20% is recommended for hormonal health. On a 2,000 calorie diet, that is 44–78 grams of fat per day."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="brand" href="/">
+        <div class="brand-icon">🔥</div>
+        <span class="brand-name">TDEE <span>Calc</span></span>
+      </a>
+      <nav class="nav-links">
+        <a href="/tdee-calculator.html">TDEE</a>
+        <a href="/macro-calculator.html">Macros</a>
+        <a href="/calorie-deficit-calculator.html">Calorie Deficit</a>
+        <a href="/bmi-calculator.html">BMI</a>
+      </nav>
+      <span class="nav-tag">Free</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-intro">
+      <div class="hero-eyebrow">Dietary Guidelines for Americans · Evidence-based targets</div>
+      <h1>Macro Calculator</h1>
+      <p>Get your daily protein, carbohydrate, and fat targets based on your calorie goal and whether you're cutting, maintaining, or bulking.</p>
+    </section>
+
+    <div class="trust-row">
+      <span class="trust-badge">Based on DGA 2020-2025 ranges</span>
+      <span class="trust-badge">Formula shown on this page</span>
+      <span class="trust-badge">No account needed</span>
+    </div>
+
+    <div class="calc-card">
+      <div class="calc-header">
+        <div class="calc-header-icon">🥗</div>
+        <div>
+          <h2>Macro Calculator</h2>
+          <p>Enter your daily calorie target and goal to get macro targets</p>
+        </div>
+      </div>
+      <div class="calc-body">
+        <form onsubmit="return false;">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="calories">Daily calorie target</label>
+              <input type="number" id="calories" min="1000" max="8000" placeholder="2000" inputmode="numeric">
+            </div>
+
+            <div class="form-group">
+              <label for="bodyweight">Bodyweight (lbs)</label>
+              <input type="number" id="bodyweight" min="80" max="700" placeholder="160" inputmode="decimal">
+            </div>
+
+            <div class="form-group full">
+              <label>Goal</label>
+              <div class="radio-group">
+                <div class="radio-btn">
+                  <input type="radio" name="goal" id="cut" value="cut">
+                  <label for="cut">Cut (lose fat)</label>
+                </div>
+                <div class="radio-btn">
+                  <input type="radio" name="goal" id="maintain" value="maintain" checked>
+                  <label for="maintain">Maintain</label>
+                </div>
+                <div class="radio-btn">
+                  <input type="radio" name="goal" id="bulk" value="bulk">
+                  <label for="bulk">Bulk (gain muscle)</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn" onclick="calculateMacros()">Calculate My Macros →</button>
+        </form>
+
+        <div class="result-box" id="resultBox">
+          <div class="result-headline">Your Daily Macro Targets</div>
+          <div class="result-number" id="calResult">—</div>
+          <div class="result-unit">calories per day</div>
+
+          <div class="macro-grid">
+            <div class="macro-tile">
+              <div class="macro-tile-label">Protein</div>
+              <div class="macro-tile-value" id="proteinG">—</div>
+              <div class="macro-tile-unit">grams/day</div>
+            </div>
+            <div class="macro-tile">
+              <div class="macro-tile-label">Carbs</div>
+              <div class="macro-tile-value" id="carbG">—</div>
+              <div class="macro-tile-unit">grams/day</div>
+            </div>
+            <div class="macro-tile">
+              <div class="macro-tile-label">Fat</div>
+              <div class="macro-tile-value" id="fatG">—</div>
+              <div class="macro-tile-unit">grams/day</div>
+            </div>
+          </div>
+
+          <div class="result-breakdown">
+            <div class="breakdown-row">
+              <span class="breakdown-label">Protein (% of calories)</span>
+              <span class="breakdown-value" id="proteinPct">—</span>
+            </div>
+            <div class="breakdown-row">
+              <span class="breakdown-label">Carbs (% of calories)</span>
+              <span class="breakdown-value" id="carbPct">—</span>
+            </div>
+            <div class="breakdown-row">
+              <span class="breakdown-label">Fat (% of calories)</span>
+              <span class="breakdown-value" id="fatPct">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-unit">Advertisement</div>
+
+    <section class="content-section">
+      <h2>How macro targets are calculated</h2>
+      <p>Macro targets are set as a percentage split of total daily calories, adjusted by goal. Protein is anchored to bodyweight first (prioritised for muscle retention), then fat is set at a minimum healthy floor, and carbs fill the remainder.</p>
+
+      <div class="formula-box">
+        Cut:     Protein 35% · Fat 25% · Carbs 40%<br>
+        Maintain: Protein 30% · Fat 30% · Carbs 40%<br>
+        Bulk:    Protein 25% · Fat 25% · Carbs 50%<br><br>
+        Protein grams = (calories × protein %) ÷ 4<br>
+        Carb grams = (calories × carb %) ÷ 4<br>
+        Fat grams = (calories × fat %) ÷ 9
+      </div>
+
+      <p>These splits are within the Dietary Guidelines for Americans 2020-2025 recommended ranges: protein 10–35%, fat 20–35%, carbohydrates 45–65%. During a cut, protein is set higher to protect lean muscle mass during a calorie deficit.</p>
+    </section>
+
+    <section class="content-section">
+      <h2>Frequently Asked Questions</h2>
+      <ul class="faq-list">
+        <li class="faq-item">
+          <div class="faq-question">What are macros in nutrition?</div>
+          <div class="faq-answer">Macros (macronutrients) are the three main nutrients that provide calories: protein (4 cal/g), carbohydrates (4 cal/g), and fat (9 cal/g). Tracking macros means ensuring you eat the right amount of each, not just total calories.</div>
+        </li>
+        <li class="faq-item">
+          <div class="faq-question">How many grams of protein should I eat per day?</div>
+          <div class="faq-answer">For active adults trying to maintain or build muscle, 0.7–1.0 grams of protein per pound of body weight (1.6–2.2g per kg) is the evidence-based range. Higher protein (up to 1.2g/lb) helps protect lean mass during a calorie deficit.</div>
+        </li>
+        <li class="faq-item">
+          <div class="faq-question">How much fat should I eat per day?</div>
+          <div class="faq-answer">The Dietary Guidelines recommend 20–35% of calories from fat. A minimum of 20% supports hormonal health. On a 2,000 calorie diet, that is 44–78 grams of fat per day.</div>
+        </li>
+        <li class="faq-item">
+          <div class="faq-question">Do carbs or fat matter more for fat loss?</div>
+          <div class="faq-answer">Neither, at equal calories. Fat loss is primarily determined by total calorie intake, not by the ratio of carbs to fat. Both low-carb and moderate-carb diets produce similar fat loss when protein and calories are matched. Choose the ratio that you can sustain long-term.</div>
+        </li>
+      </ul>
+    </section>
+
+    <section class="related-tools content-section">
+      <h2>Related calculators</h2>
+      <ul class="related-list">
+        <li><a href="/tdee-calculator.html">TDEE Calculator</a></li>
+        <li><a href="/calorie-deficit-calculator.html">Calorie Deficit Calculator</a></li>
+        <li><a href="/bmi-calculator.html">BMI Calculator</a></li>
+      </ul>
+    </section>
+
+    <p class="source-note">
+      Macro ranges: Dietary Guidelines for Americans 2020–2025.
+      Protein recommendations: Morton RW, et al. <em>Br J Sports Med.</em> 2018. Not medical advice.
+    </p>
+  </main>
+
+  <footer>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/tdee-calculator.html">TDEE</a>
+      <a href="/macro-calculator.html">Macros</a>
+      <a href="/calorie-deficit-calculator.html">Calorie Deficit</a>
+      <a href="/bmi-calculator.html">BMI</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+    </nav>
+    <p>© 2026 TDEE Calc Tools · Free fitness calculators · Not medical advice</p>
+  </footer>
+
+  <script>
+    function calculateMacros() {
+      const calories = parseFloat(document.getElementById('calories').value);
+      const bw = parseFloat(document.getElementById('bodyweight').value);
+      const goal = document.querySelector('input[name="goal"]:checked').value;
+
+      if (!calories || isNaN(calories)) {
+        alert('Please enter your daily calorie target.');
+        return;
+      }
+
+      let proteinPct, carbPct, fatPct;
+      if (goal === 'cut')      { proteinPct = 0.35; fatPct = 0.25; carbPct = 0.40; }
+      else if (goal === 'bulk') { proteinPct = 0.25; fatPct = 0.25; carbPct = 0.50; }
+      else                      { proteinPct = 0.30; fatPct = 0.30; carbPct = 0.40; }
+
+      const proteinG = Math.round((calories * proteinPct) / 4);
+      const carbG = Math.round((calories * carbPct) / 4);
+      const fatG = Math.round((calories * fatPct) / 9);
+
+      document.getElementById('calResult').textContent = Math.round(calories).toLocaleString();
+      document.getElementById('proteinG').textContent = proteinG;
+      document.getElementById('carbG').textContent = carbG;
+      document.getElementById('fatG').textContent = fatG;
+      document.getElementById('proteinPct').textContent = Math.round(proteinPct * 100) + '%';
+      document.getElementById('carbPct').textContent = Math.round(carbPct * 100) + '%';
+      document.getElementById('fatPct').textContent = Math.round(fatPct * 100) + '%';
+
+      const box = document.getElementById('resultBox');
+      box.classList.add('visible');
+      box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  </script>
+</body>
+</html>
